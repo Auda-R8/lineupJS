@@ -1,0 +1,167 @@
+aside {
+    width: 100%;
+    height: calc(100vh - 50px);
+    max-width: 300px;
+    min-width: 300px;
+
+    position: relative;
+    left: 0;
+
+    box-shadow: var(--box-shadow);
+    background-color: var(--background-panel);
+
+    transition: all .3s linear;
+
+    margin-right: 25px;
+    border-radius: var(--border-radius-aside);
+}
+
+.aside-inner {
+    height: 100%;
+    position: relative;
+    padding: var(--padding-aside);
+}
+
+.aside-logo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    gap: 15px;
+
+    margin-bottom: 30px;
+}
+
+.aside-logo p {
+    font-size: 2.2rem;
+    font-weight: 600;
+    font-family: 'Nunito', sans-serif;
+}
+
+.aside-nav {
+
+}
+
+.nav-link__container {
+}
+
+.nav-link__link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    font-size: 1rem;
+    font-weight: 500;
+
+    color: var(--color-text);
+
+    cursor: pointer;
+
+    padding: 17px 20px;
+    margin: 7px 0;
+    transition: all .3s ease;
+}
+
+.nav-link__link:hover,
+.nav-link__link.active {
+    color: var(--color-primary);
+    box-shadow: var(--box-shadow-link);
+    transition: all .3s ease;
+    border-radius: var(--border-radius-link);
+}
+
+#settings-link > svg {
+    transition: transform .9s ease, color .3s ease;
+}
+
+#settings-link:hover > svg{
+    stroke: var(--color-primary);
+    transition: transform .9s ease, color .3s ease;
+    transform: rotateZ(180deg);
+}
+
+.nav-link__link svg {
+    width: 1.5rem;
+    height: 1.5rem;
+    transition: all .3s ease;
+}
+
+.nav-link__link:hover > svg {
+    color: var(--color-primary);
+    transition: all .3s ease;
+    transform: scale(1.1);
+}
+
+.nav-link__link.active > svg {
+    color: var(--color-primary);
+}
+
+.nav-link__container:last-child {
+    position: absolute;
+    width: 100%;
+    max-width: 260px;
+    bottom: 20px;
+}
+
+    /* Compact */
+
+aside.compact {
+    width: 100%;
+    max-width: 80px;
+    min-width: 80px;
+}
+
+aside.compact p {
+    font-size: 0;
+}
+
+aside.compact .nav-link__link {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+
+    font-size: 0;
+
+    margin: 7px 0;
+    padding: 15px;
+}
+
+aside.compact .aside-logo {
+    justify-content: center;
+    gap: 0;
+}
+
+aside.compact .nav-link__container:last-child {
+    width: 60px;
+}
+
+/* Hide */
+
+aside.close {
+    width: 100%;
+    max-width: 0;
+    min-width: 0;
+    opacity: 0;
+    margin-right: 0;
+}
+
+aside.close .aside-logo {
+    display: none;
+}
+
+aside.compact {
+    width: 100%;
+    max-width: 80px;
+    min-width: 80px;
+}
+
+#closeBtn svg {
+    transition: all .3s linear;
+}
+
+#closeBtn.closeBtn-animate svg {
+   transform: rotateZ(540deg);
+}

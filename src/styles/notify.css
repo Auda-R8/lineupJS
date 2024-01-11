@@ -1,0 +1,170 @@
+/*
+    Notifications
+*/
+
+.notification {
+    width: 300px;
+    height: 100%;
+
+    max-height: 300px;
+
+    position: absolute;
+    right: 25px;
+    z-index: 101;
+
+    box-shadow: var(--box-shadow);
+    background-color: var(--background-panel);
+
+    opacity: 0;
+    overflow: hidden;
+    visibility: hidden;
+
+    border-radius: var(--border-radius-default);
+    padding: 15px 0;
+    
+    transition: all .3s ease
+}
+
+.notification.active {
+    opacity: 1;
+    visibility: visible;
+    transition: all .3s ease
+}
+
+.notification-inner {
+    height: inherit;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    margin-right: 3px;
+}
+
+.notification-header {
+    padding-bottom: 15px;
+}
+
+.notification-header::after {
+    content: " ";
+    width: 250px;
+    height: 1px;
+    display: block;
+    text-align: center;
+    background-color: #d9d9d9;
+    margin: 3px auto 0 auto;
+}
+
+.notification__title {
+    font-size: 1.1rem;
+    font-weight: 800;
+    font-family: 'Nunito', sans-serif;
+
+    text-align: center;
+    color: var(--color-text);
+}
+
+.notification-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    padding: 0 10px;
+}
+
+.notification-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    flex-direction: row;
+    gap: 10px;
+    padding: 0 20px;
+}
+
+.notification-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+
+    padding: 8px 0;
+    border-radius: var(--border-radius-default);
+}
+
+.notification-item:hover {
+    cursor: pointer;
+    box-shadow: var(--box-shadow-link);
+}
+
+.notification-item__text p {
+    width: 200px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 16px;
+    color: var(--color-text);
+}
+
+.notification-item__text p span {
+    color: var(--color-text);
+    font-weight: 800;
+    text-decoration: underline var(--color-text);
+}
+
+#tableSettings .notification-content {
+    gap: 10px;
+    padding: 0 20px;
+}
+
+.table-settings__row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.table-settings__row p {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+#tableSettings button {
+    font-size: 16px;
+
+    color: #fff;
+    background-color: var(--color-primary);
+    
+    padding: 2px 20px;
+    border-radius: 6px;
+
+    transition: all .15s ease;
+}
+
+#tableSettings button.on {
+    background-color: var(--color-success);
+}
+
+#tableSettings button.off {
+    background-color: var(--color-danger);
+}
+
+#tableSettings button:hover {
+    cursor: pointer;
+    transition: all .15s ease;
+}
+
+#notify-btn {
+    position: relative;
+}
+
+.highlight {
+    font-size: 10px;
+
+    color: #fff;
+    background-color: var(--color-danger);
+
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+
+    border-radius: 4px;
+    padding: 1px 4px;
+}

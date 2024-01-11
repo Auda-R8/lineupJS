@@ -1,0 +1,79 @@
+:root {
+    --color-primary: #4361EE;
+    --color-danger: #E57373;
+    --color-success: #81C784;
+    --color-warning: #FFB74D;
+    --color-white: #EEE;
+    --color-main: #282945;
+
+    --background-body: #F2F2F2;
+    --background-panel: #FFF;
+    --background-scroll: #ccc;
+    --background-input: #FFF;
+
+    --color-text: #282945;
+
+    --color-trow: #FFF;
+    --color-thead: #F6F8FA;
+
+    --color-border-light: #EAEAEA;
+    --color-border-dark: #DBDBDB;
+    --color-border-input: #E0E6ED;
+
+    --color-shadow: rgba(0, 0, 0, .3);
+    --color-shadow-help: rgba(0, 0, 0, .5);
+
+    --box-shadow: 0 0 30px -5px var(--color-shadow);
+    --box-shadow-link: inset 0px 0px 15px -5px rgba(0, 0, 0, .5);
+    --box-shadow-icon: inset 0px 0px 10px -2px rgba(0, 0, 0, .5);
+    --box-shadow-help: 0 0 30px -5px var(--color-shadow-help);
+
+    /* Default Values */
+    --border-radius-default: 20px;
+
+    /* Custom Values */
+    --border-radius-elem: 12px;
+    --border-radius-link: 20px;
+    --border-radius-aside: 30px;
+    --border-radius-header: 20px;
+    --border-radius-table: 20px;
+    --border-radius-btn: 6px;
+
+    --padding-aside: 30px 20px;
+    --padding-panel: 20px 30px;
+
+    --transition-default: all .3s ease;
+}
+
+.dark-theme {
+    --color-success: #348237;
+    --color-danger: #c52d2d;
+
+    --background-body: #191919;
+    --background-panel: #222;
+    --background-scroll: #666;
+    --background-input: #333;
+
+    --color-text: #ccc;
+
+    --color-trow: #222;
+    --color-thead: #2b2b2b;
+
+    --color-border-light: #EAEAEA;
+    --color-border-dark: #DBDBDB;
+    --color-border-input: #464646;
+
+    --color-shadow: rgba(0, 0, 0, 0);
+    --color-shadow-help: rgba(255, 255, 255, .5);
+
+    --box-shadow: 0 0 30px -5px var(--color-shadow);
+    --box-shadow-link: inset 0px 0px 15px -2px rgba(255, 255, 255, .3);
+    --box-shadow-icon: inset 0px 0px 10px -2px rgba(0, 0, 0, 0);
+    --box-shadow-help: 0 0 30px -5px var(--color-shadow-help);
+}
+
+.compact {
+    --border-radius-aside: 20px;
+
+    --padding-aside: 30px 10px;
+}
