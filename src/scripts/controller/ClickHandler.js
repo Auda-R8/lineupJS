@@ -11,7 +11,7 @@ export class ClickHandler {
 
         links.forEach(elem => elem.classList.remove('active'))
         link.classList.add('active')
-        PageRenderer.renderPage(link.id)
+        PageRenderer.renderPageByLink(link.id)
     }
 
     static clickNavLink() {

@@ -5,6 +5,8 @@
 // import {Database} from "./Database.js";
 
 import {ClickHandler} from './controller/ClickHandler.js'
+import {Connection} from './database/Connection.js';
+import {Preloader} from './interface/Preloader.js'
 //
 // const filesystem = require('fs')
 // const handlebars = require('handlebars')
@@ -14,7 +16,9 @@ import {ClickHandler} from './controller/ClickHandler.js'
 
 document.addEventListener('DOMContentLoaded', async () => {
 
-    ClickHandler.clickNavLink()
+    await Preloader.init()
+
+    // ClickHandler.clickNavLink()
 
     // await Manager.preloader()
 

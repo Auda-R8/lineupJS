@@ -1,29 +1,36 @@
-import {Connection} from "./Connection"
+import {Connection} from './Connection.js'
 
 export class FetchData {
 
     static async fetchIncoming() {
         return await new Promise(async (resolve, reject) => {
-            await Connection.connect().all(`
+            (await Connection.connect()).all(`
                 SELECT incoming.id                 AS id,
+                       incoming.description        AS description,
+                       
+                       incoming.type_id            AS typeId,
                        types.name                  AS typeName,
-                       requisite.date              AS receipt,
+                       
+                       incoming.requisite_id       AS requisiteId,
+                       requisite.date              AS requisiteDate,
+                       requisite.number            AS requisiteNumber,
+                       
+                       requisite.sender_id         AS senderId,
                        senders.name                AS senderName,
-                       requisite.number            AS num,
-                       incoming.description        AS desc,
-                       resolutions.resolution      AS resolution,
+                       
+                       incoming.resolution_id      AS resolutionId,
+                       resolutions.resolution      AS resolutionDesc,
                        resolutions.resolution_date AS resolutionDate,
+                       
+                       resolutions.director_id     AS directorId,
                        directors.name              AS directorName,
-                       execution.date              AS executorDate,
-                       incoming.term_control       AS termControl,
+                       
+                       execution.id                AS executionId,
+                       execution.date              AS executionDate,
+                       
                        incoming.info               AS info,
                        incoming.complete           AS statusId,
-                       execution.id                AS executionId,
-                       incoming.type_id            AS typeId,
-                       requisite.sender_id         AS senderId,
-                       resolutions.director_id     AS directorId,
-                       incoming.requisite_id       AS requisiteId,
-                       incoming.resolution_id      AS resolutionId
+                       incoming.term_control       AS termControl
                 FROM incoming
                          LEFT JOIN types
                                    ON types.id = incoming.type_id

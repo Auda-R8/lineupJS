@@ -44,10 +44,18 @@ export class PageRenderer {
     static #template
 
     static registerPartials() {
-
+        handlebars.registerPartial('incomingHeader', fs.readFileSync(path.resolve(__dirname, 'components/tables/incomingHead.hbs'), 'utf8'))
+        handlebars.registerPartial('incomingBody', fs.readFileSync(path.resolve(__dirname, 'components/tables/incomingBody.hbs'), 'utf8'))
+        // handlebars.registerPartial('editRow', fs.readFileSync(path.resolve(__dirname, 'components/editRow.hbs'), 'utf8'))
     }
 
-    static renderPage(link) {
+    static renderPageByName(pageName) {
+        PageRenderer.#pages.forEach(elem => {
+            elem.page.includes(pageName) ? elem.method(elem.page) : null
+        })
+    }
+
+    static renderPageByLink(link) {
         PageRenderer.#pages.forEach(elem => {
             elem.link.includes(link) ? elem.method(elem.page) : null
         })

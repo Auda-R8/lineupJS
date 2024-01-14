@@ -147,7 +147,7 @@ CREATE TABLE resolutions
     id          INTEGER PRIMARY KEY AUTOINCREMENT,
     director_id INTEGER DEFAULT 0, -- Director ID
     resolution  TEXT DEFAULT '-',    -- Resolution
-    resolution_date DATE, -- Resolution Date
+    resolution_date DATE DEFAULT NULL, -- Resolution Date
     FOREIGN KEY (director_id) REFERENCES directors (id)
 );
 
