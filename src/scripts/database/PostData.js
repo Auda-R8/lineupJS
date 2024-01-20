@@ -179,49 +179,6 @@ export class PostData {
                 )
             })
 
-            // const row = await new Promise(async (resolve, reject) => {
-            //     (await Connection.connect()).all(`SELECT incoming.id                 AS id,
-            //                    incoming.description        AS description,
-            //
-            //                    incoming.type_id            AS typeId,
-            //                    types.name                  AS typeName,
-            //
-            //                    incoming.requisite_id       AS requisiteId,
-            //                    requisite.date              AS requisiteDate,
-            //                    requisite.number            AS requisiteNumber,
-            //
-            //                    requisite.sender_id         AS senderId,
-            //                    senders.name                AS senderName,
-            //
-            //                    incoming.resolution_id      AS resolutionId,
-            //                    resolutions.resolution      AS resolutionDesc,
-            //                    resolutions.resolution_date AS resolutionDate,
-            //
-            //                    resolutions.director_id     AS directorId,
-            //                    directors.name              AS directorName,
-            //
-            //                    execution.id                AS executionId,
-            //                    execution.date              AS executionDate,
-            //
-            //                    incoming.info               AS info,
-            //                    incoming.complete           AS statusId,
-            //                    incoming.term_control       AS termControl
-            //             FROM incoming
-            //                      LEFT JOIN types
-            //                                ON types.id = incoming.type_id
-            //                      LEFT JOIN requisite ON requisite.id = incoming.requisite_id
-            //                      LEFT JOIN senders ON senders.id = requisite.sender_id
-            //                      LEFT JOIN resolutions ON resolutions.id = incoming.resolution_id
-            //                      LEFT JOIN directors ON directors.id = resolutions.director_id
-            //                      LEFT JOIN execution ON execution.id = incoming.execution_id
-            //             WHERE incoming.id = ${data.id};`,
-            //         (err, row) => {
-            //             if (err) reject(err)
-            //             else resolve(row)
-            //         }
-            //     )
-            // })
-
             await Loader.loadData()
 
             await Connection.disconnect()
@@ -231,91 +188,21 @@ export class PostData {
             throw err
         }
     }
-
-    static
-    async addMetadata(data, tableName) {
-        try {
-            let lastInsertedId = data.id
-            console.log(lastInsertedId)
-
-            await new Promise((resolve, reject) => {
-                this.connect().run(
-                    `INSERT INTO ${tableName} (name, enable)
-                     VALUES (?, ?);`,
-                    [data.name, data.enable],
-                    err => {
-                        if (err) reject(err)
-                        else resolve()
-                    })
-            })
-
-            const row = await new Promise((resolve, reject) => {
-                this.connect().all(
-                    `SELECT *
-                     FROM ${tableName}
-                     WHERE id = ?`,
-                    [lastInsertedId],
-                    (err, row) => {
-                        if (err) reject(err)
-                        else resolve(row)
-                    })
-            })
-
-            console.log(row)
-            await Manager.getMetadata()[tableName].push(row)
-            await HandlerData.handlerMetadata(row, tableName)
-            await Manager.getMetadataTable(tableName)
-
-            console.log("updated!");
-
-            this.connect().close()
-            return true;
-        } catch (err) {
-            console.error(err);
-            throw err;
-        }
-    }
-
-
     static async #postMeta(data) {
-        console.log(data)
-        return
         try {
-            let lastInsertedId = data.id
-            console.log(lastInsertedId)
-
-            await new Promise((resolve, reject) => {
-                this.connect().run(
-                    `INSERT INTO ${tableName} (name, enable)
-                     VALUES (?, ?);`,
-                    [data.name, data.enable],
+            await new Promise(async (resolve, reject) => {
+                (await Connection.connect()).run(
+                    `INSERT INTO ${Store.getThisPage()} (name, enable, counter)
+                     VALUES (?, ?, ?);`,
+                    [data.name, data.enable, data.counter],
                     err => {
                         if (err) reject(err)
                         else resolve()
                     })
             })
 
-            const row = await new Promise((resolve, reject) => {
-                this.connect().all(
-                    `SELECT *
-                     FROM ${tableName}
-                     WHERE id = ?`,
-                    [lastInsertedId],
-                    (err, row) => {
-                        if (err) reject(err)
-                        else resolve(row)
-                    })
-            })
-
-            console.log(row)
-            await Manager.getMetadata()[tableName].push(row)
-            await HandlerData.handlerMetadata(row, tableName)
-            await Manager.getMetadataTable(tableName)
-
-            console.log("updated!");
-
-            this.connect().close()
-            return true;
+            await Loader.loadData()
+            await Connection.disconnect()
         } catch (err) {
             console.error(err);
             throw err;
