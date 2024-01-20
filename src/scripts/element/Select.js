@@ -37,6 +37,11 @@ export class Select {
     static #createMultiSelect() {
         document.querySelectorAll('.multiselect-container').forEach(elem => {
 
+            // Нажатие на input Открывает select
+            elem.querySelector('.select__input').addEventListener('click', event => {
+                elem.querySelector('.select__dropdownList').classList.add('show')
+            })
+
             // Обработчик нажатия на элементы списка
             elem.querySelector('.select__dropdownList').addEventListener('click', event => {
                 // let arr = elem.querySelectorAll('li')
@@ -49,7 +54,10 @@ export class Select {
                     }
                 })
 
-                // elem.querySelector('.select__input').value = selectedValues.join(', ')
+                let selectedItems = []
+                elem.querySelectorAll('.selected').forEach(selected => selectedItems.push(selected.textContent))
+
+                elem.querySelector('.select__input').value = selectedItems.join(', ')
             })
 
             Select.openDropDownList(elem)
@@ -61,7 +69,7 @@ export class Select {
     static openDropDownList(elem) {
         // Обработчик нажатия на кнопку открытия селекта
         elem.querySelector('.select__dropdownButton').addEventListener('click', event => {
-            elem.querySelector('.select__dropdownList').classList.toggle('show')
+            elem.querySelector('.select__dropdownList').classList.add('show')
         })
     }
 

@@ -3,73 +3,74 @@
 
     </td>
     <!--ID-->
-    <td id="add-id" data-value="{{getNewId incomingData}}">
+    <td id="addId" data-value="{{getNewId incomingData}}">
         {{#getNewId incomingData}}
         {{/getNewId}}
     </td>
     <!--Type Incoming-->
     <td data-filter="types">
         <div class="add-form select-container">
-            <input type="text" class="select__input" id="add-type" data-value="0" placeholder="Выберите тип">
+            <input type="text" class="select__input" id="addTypeId" data-value="0" placeholder="Выберите тип">
             <button class="select__dropdownButton">&#9662;</button>
             <ul class="select__dropdownList">
-                {{#getMetadataList metaData 'types'}}
+                {{#getMetaDataList metaData 'types'}}
 
-                {{/getMetadataList}}
+                {{/getMetaDataList}}
             </ul>
         </div>
     </td>
     <!--Receipt-->
     <td>
         <div class="add-form">
-            <input id="add-receipt" type="date">
+            <input id="addRequisiteDate" type="date">
         </div>
     </td>
     <!--Senders-->
     <td>
         <div class="add-form select-container">
-            <input type="text" class="select__input" id="add-sender" data-value="0" placeholder="Отправитель">
+            <input type="text" class="select__input" id="addSenderId" data-value="0" placeholder="Отправитель">
             <button class="select__dropdownButton">&#9662;</button>
             <ul class="select__dropdownList">
-                {{#getMetadataList metaData 'senders'}}
+                {{#getMetaDataList metaData 'senders'}}
 
-                {{/getMetadataList}}
+                {{/getMetaDataList}}
             </ul>
         </div>
     </td>
     <!-- Number of Incoming-->
     <td>
         <div class="add-form">
-            <input id="add-num" type="text">
+            <input id="addRequisiteNumber" type="text">
         </div>
     </td>
     <!--Desc-->
     <td>
         <div class="add-form">
-            <input id="add-desc" type="text">
+            <input id="addDescription" type="text">
         </div>
     </td>
     <!--Director-->
     <td>
         <div class="add-form select-container">
-            <input type="text" class="select__input" id="add-director" data-value="0" placeholder="Руководитель">
+            <input type="text" class="select__input"
+                   id="addDirectorId" data-value="0" placeholder="Руководитель">
             <button class="select__dropdownButton">&#9662;</button>
             <ul class="select__dropdownList">
-                {{#getMetadataList metaData 'directors'}}
+                {{#getMetaDataList metaData 'directors'}}
 
-                {{/getMetadataList}}
+                {{/getMetaDataList}}
             </ul>
         </div>
     </td>
     <!--Resolution-->
     <td>
         <div class="add-form">
-            <input id="add-resolution" type="text">
+            <input id="addResolutionDesc" type="text">
         </div>
     </td>
     <td>
         <div class="add-form">
-            <input id="add-resolution-date" type="date">
+            <input id="addResolutionDate" type="date">
         </div>
     </td>
     <!--Executor-->
@@ -77,34 +78,34 @@
         <div class="add-form multiselect-container">
             <input type="text" class="select__input" data-value="0" placeholder="Исполнители">
             <button class="select__dropdownButton">&#9662;</button>
-            <ul class="select__dropdownList" id="add-executor">
-                {{#getMetadataList metaData 'executors'}}
+            <ul class="select__dropdownList" id="addExecutor">
+                {{#getMetaDataList metaData 'executors'}}
 
-                {{/getMetadataList}}
+                {{/getMetaDataList}}
             </ul>
         </div>
     </td>
     <!--Date of executor-->
     <td>
         <div class="add-form">
-            <input id="add-execution-date" type="date">
+            <input id="addExecutionDate" type="date">
         </div>
     </td>
     <!--Term Control-->
     <td>
         <div class="add-form">
-            <input type="date" id="add-term-control">
+            <input type="date" id="addTermControlDate">
         </div>
     </td>
     <!--Info-->
     <td>
         <div class="add-form">
-            <input id="add-info" type="text">
+            <input id="addInfo" type="text">
         </div>
     </td>
     <td>
         <div class="add-form">
-            <select id="add-status">
+            <select id="addStatusId">
                 <option value="0" selected>Не выполнен</option>
                 <option value="1">Выполнен</option>
                 <option value="2">Во входящих</option>
@@ -125,24 +126,22 @@
         <td data-filter="types" data-value="{{typeId}}">
             {{typeName}}
         </td>
-        <td data-filter="receipt" data-value="{{receiptValue}}">{{receipt}}</td>
-        <td data-filter="senders" data-value="{{senderId}}">
-            {{senderName}}
+        <td data-filter="receipt" data-value="{{requisiteDate}}">{{requisiteDateValue}}</td>
+        <td data-filter="senders" data-value="{{senderId}}">{{senderName}}</td>
+        <td>
+            <div class="td-container">
+                {{requisiteNumber}}
+            </div>
+            <div class="hover-on">
+                {{requisiteNumber}}
+            </div>
         </td>
         <td>
             <div class="td-container">
-                {{num}}
+                {{description}}
             </div>
             <div class="hover-on">
-                {{num}}
-            </div>
-        </td>
-        <td>
-            <div class="td-container">
-                {{desc}}
-            </div>
-            <div class="hover-on">
-                {{desc}}
+                {{description}}
             </div>
         </td>
         <td data-filter="directors" data-value="{{directorId}}">
@@ -150,14 +149,14 @@
         </td>
         <td>
             <div class="td-container">
-                {{resolution}}
+                {{resolutionDesc}}
             </div>
             <div class="hover-on">
-                {{resolution}}
+                {{resolutionDesc}}
             </div>
         </td>
-        <td data-value="{{resolutionDateValue}}">
-            {{resolutionDate}}
+        <td data-value="{{resolutionDate}}">
+            {{resolutionDateValue}}
         </td>
         <td data-filter="executors" data-value="{{executionId}}">
             <div>
@@ -167,9 +166,9 @@
                 {{executorName}}
             </div>
         </td>
-        <td data-filter="executor-date" data-value="{{executorDateValue}}">{{executorDate}}</td>
-        <td data-filter="term-control" data-value="{{termControlValue}}">
-            {{termControl}}
+        <td data-filter="executor-date" data-value="{{executionDate}}">{{executionDateValue}}</td>
+        <td data-filter="term-control" data-value="{{termControlDate}}">
+            {{termControlDateValue}}
         </td>
         <td>
             <div class="td-container">

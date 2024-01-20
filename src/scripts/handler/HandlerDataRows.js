@@ -39,7 +39,7 @@ export class HandlerDataRows {
 
                 // Executors
                 executorId: HandlerDataRows.#getExecutorsId(row.id, row.executionId),
-                executorName: HandlerDataRows.#getExecutorsName(row.executorName),
+                executorName: HandlerDataRows.#getExecutorsName(row.id, row.executionId),
 
                 info: Validate.validValue(row.info),
                 statusId: Validate.validId(row.statusId),
@@ -53,16 +53,47 @@ export class HandlerDataRows {
         })
     }
 
+    static async handlerMeta(rows, name) {
+        await rows.forEach(row => {
+            let saveRow = {
+                id: row.id,
+                name: Validate.validValue(row.name),
+                counter: row.counter,
+                enable: row.enable
+            }
+
+            Store.pushMetaData(saveRow, name)
+        })
+    }
+
+    static handlerExecutors(rows) {
+        const result = new Map()
+
+        rows.forEach(elem => {
+            let saveRow = {
+                execution_id: elem.en,
+                incoming_id: elem.id,
+                executor_name: elem.name,
+                executor_id: elem.executor_id
+            }
+            Store.pushExecutorsData(saveRow)
+            if (result.has(elem.id)) {
+                result.get(elem.id).push(elem.name);
+            } else {
+                result.set(elem.id, [elem.name]);
+            }
+        })
+    }
+
     static #getExecutorsName(incomingId, executionId) {
         let name = []
-
-        Store.getMetaData().executors.forEach(elem => {
+        Store.getExecutorsData().forEach(elem => {
             if (elem.incoming_id === incomingId && elem.execution_id === executionId) {
                 name.push(elem.executor_name)
             }
         })
 
-        return name.join(', ')
+        return name.length > 0 ? name.join(', ') : 'Отсутствует'
     }
 
     static #getExecutorsId(incomingId, executionId) {

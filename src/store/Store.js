@@ -5,7 +5,6 @@ export class Store {
         senders: [],
         executors: [],
         directors: []
-
     }
     static #notifyData = []
     static #incomingData = []
@@ -13,8 +12,23 @@ export class Store {
 
     static #thisPage = null
 
+    static reset() {
+        Store.#metaData = {
+            types: [],
+            senders: [],
+            executors: [],
+            directors: []
+        }
+        Store.#incomingData =[]
+        Store.#executorsData = []
+    }
+
     static pushIncomingData(data) {
         Store.#incomingData.push(data)
+    }
+
+    static pushMetaData(data, name) {
+        Store.#metaData[name].push(data)
     }
 
     static pushExecutorsData(data) {
@@ -25,9 +39,23 @@ export class Store {
         Store.#thisPage = thisPage
     }
 
+    static changeIncomingElementById(id, property, value) {
+        console.log(Store.#incomingData)
+        console.log(Store.#incomingData[id - 1])
+        Store.#incomingData[id - 1][property] = value
+    }
+
+    static changeMetaElementById(id, arr, property, value) {
+        Store.#metaData[arr][id - 1][property] = value
+    }
+
     static setMetaData(name, data) {
         Store.#metaData[name] = []
         Store.#metaData[name].push(data)
+    }
+
+    static resetMetaData(name) {
+        Store.#metaData[name] = []
     }
 
     static setNotifyData(data) {
@@ -46,7 +74,7 @@ export class Store {
     }
 
     static getThisPage() {
-
+        return Store.#thisPage
     }
 
     static getMetaData() {

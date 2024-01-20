@@ -6,7 +6,8 @@
 
 import {ClickHandler} from './controller/ClickHandler.js'
 import {Connection} from './database/Connection.js';
-import {Preloader} from './interface/Preloader.js'
+import {Loader} from './interface/Loader.js'
+import {Store} from '../store/Store.js'
 //
 // const filesystem = require('fs')
 // const handlebars = require('handlebars')
@@ -16,9 +17,21 @@ import {Preloader} from './interface/Preloader.js'
 
 document.addEventListener('DOMContentLoaded', async () => {
 
-    await Preloader.init()
+    Store.setThisPage('incoming')
+    await Loader.loadData()
 
-    // ClickHandler.clickNavLink()
+    ClickHandler.clickNavLink()
+
+    ClickHandler.clickButtonAdd()
+    ClickHandler.clickButtonEdit()
+
+    ClickHandler.confirmAdd()
+    ClickHandler.clickCancelRow()
+
+    ClickHandler.clickEditRow()
+    ClickHandler.clickEditCancelRow()
+
+
 
     // await Manager.preloader()
 

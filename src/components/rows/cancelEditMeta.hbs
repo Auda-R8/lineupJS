@@ -1,0 +1,13 @@
+{{#each saveData}}
+
+    {{> editRow}}
+
+    <td data-value="{{this.id}}">{{this.id}}</td>
+    <td data-value="{{this.name}}">{{this.name}}</td>
+    <td data-value="{{this.counter}}">{{this.counter}}</td>
+    <td data-value="{{this.enable}}">
+        {{#getTextForEnableColumn this.enable}}
+        {{/getTextForEnableColumn}}
+    </td>
+
+{{/each}}

@@ -49,7 +49,7 @@ export class FetchData {
 
     static async fetchMeta(tableName) {
         return await new Promise(async (resolve, reject) => {
-            await Connection.connect().all(`
+            (await Connection.connect()).all(`
                 SELECT *
                 FROM ${tableName}
             `, (err, rows) => {
@@ -74,9 +74,9 @@ export class FetchData {
         })
     }
 
-    static async getExecutorsTable() {
+    static async fetchExecutorsTable() {
         return await new Promise(async (resolve, reject) => {
-            await Connection.connect().all(`
+            (await Connection.connect()).all(`
                 SELECT execution.id AS en, name, e.id AS executor_id, incoming.id AS id
                 FROM execution
                          JOIN execution_executors on execution.id = execution_executors.execution_id

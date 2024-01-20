@@ -2,6 +2,7 @@ const fs = require('fs')
 const path = require('path')
 const handlebars = require('handlebars')
 
+import {Helper} from '../helper/Helper.js'
 import {Store} from '../../store/Store.js'
 import {Select} from '../element/Select.js'
 
@@ -35,7 +36,7 @@ export class PageRenderer {
         {
             link: 'settings-link',
             page: 'settings',
-            method: PageRenderer.#renderMeta
+            method: PageRenderer.#renderSettings
         }
     ]
 
@@ -46,7 +47,7 @@ export class PageRenderer {
     static registerPartials() {
         handlebars.registerPartial('incomingHeader', fs.readFileSync(path.resolve(__dirname, 'components/tables/incomingHead.hbs'), 'utf8'))
         handlebars.registerPartial('incomingBody', fs.readFileSync(path.resolve(__dirname, 'components/tables/incomingBody.hbs'), 'utf8'))
-        // handlebars.registerPartial('editRow', fs.readFileSync(path.resolve(__dirname, 'components/editRow.hbs'), 'utf8'))
+        handlebars.registerPartial('editRow', fs.readFileSync(path.resolve(__dirname, 'components/rows/editRow.hbs'), 'utf8'))
     }
 
     static renderPageByName(pageName) {
@@ -62,14 +63,15 @@ export class PageRenderer {
     }
 
     static #renderIncoming(page) {
-        console.log(page)
         Store.setThisPage(page)
+        Helper.helperIncoming()
 
         PageRenderer.#container.classList.add('limiter')
         PageRenderer.#template = handlebars.compile(fs.readFileSync(path.resolve(__dirname, 'components/tables/incoming.hbs'), 'utf8'))
         PageRenderer.#container.innerHTML = PageRenderer.#template({
             incomingData: Store.getIncomingData(),
-            metaData: Store.getMetaData()
+            metaData: Store.getMetaData(),
+            executors: Store.getExecutorsData()
         })
 
         Select.init()
@@ -77,5 +79,25 @@ export class PageRenderer {
 
     static #renderMeta(page) {
         Store.setThisPage(page)
+        Helper.helperMeta()
+
+        PageRenderer.#container.classList.remove('limiter')
+        PageRenderer.#template = handlebars.compile(fs.readFileSync(path.resolve(__dirname, 'components/tables/meta.hbs'), 'utf8'))
+        PageRenderer.#container.innerHTML = PageRenderer.#template({
+            metaData: Store.getMetaData()[page]
+        })
+
+        Select.init()
+    }
+
+    static #renderSettings(page) {
+        Store.setThisPage(page)
+        Helper.helperSettings()
+
+        PageRenderer.#container.classList.remove('limiter')
+        PageRenderer.#template = handlebars.compile(fs.readFileSync(path.resolve(__dirname, 'components/tables/settings.hbs'), 'utf8'))
+        PageRenderer.#container.innerHTML = PageRenderer.#template()
+
+        Select.init()
     }
 }

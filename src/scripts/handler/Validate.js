@@ -13,12 +13,12 @@ export class Validate {
     }
 
     static validDate(date) {
-        if (date === null || date === undefined || date === '') return null
+        if (date === null || date === undefined || date === '' || date === '-') return null
         else return date
     }
 
     static validDateValue(date) {
-        if (date === null || date === undefined || date === '') return '-'
+        if (date === null || date === undefined || date === '' || date === '-') return '-'
         else return date.split('-').reverse().join('.')
     }
 

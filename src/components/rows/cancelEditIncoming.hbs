@@ -1,0 +1,63 @@
+{{#each saveData}}
+
+{{> editRow this}}
+
+<td data-filter="id" data-value="{{id}}">{{id}}</td>
+<td data-filter="types" data-value="{{typeId}}">
+    {{typeName}}
+</td>
+<td data-filter="receipt" data-value="{{requisiteDate}}">{{requisiteDateValue}}</td>
+<td data-filter="senders" data-value="{{senderId}}">{{senderName}}</td>
+<td>
+    <div class="td-container">
+        {{requisiteNumber}}
+    </div>
+    <div class="hover-on">
+        {{requisiteNumber}}
+    </div>
+</td>
+<td>
+    <div class="td-container">
+        {{description}}
+    </div>
+    <div class="hover-on">
+        {{description}}
+    </div>
+</td>
+<td data-filter="directors" data-value="{{directorId}}">
+    {{directorName}}
+</td>
+<td>
+    <div class="td-container">
+        {{resolutionDesc}}
+    </div>
+    <div class="hover-on">
+        {{resolutionDesc}}
+    </div>
+</td>
+<td data-value="{{resolutionDate}}">
+    {{resolutionDateValue}}
+</td>
+<td data-filter="executors" data-value="{{executionId}}">
+    <div>
+        {{executorName}}
+    </div>
+    <div class="hover-on">
+        {{executorName}}
+    </div>
+</td>
+<td data-filter="executor-date" data-value="{{executionDate}}">{{executionDateValue}}</td>
+<td data-filter="term-control" data-value="{{termControlDate}}">
+    {{termControlDateValue}}
+</td>
+<td>
+    <div class="td-container">
+        {{info}}
+    </div>
+    <div class="hover-on">
+        {{info}}
+    </div>
+</td>
+<td data-filter="status" data-value="{{statusId}}">{{statusName}}</td>
+
+{{/each}}
