@@ -1,5 +1,7 @@
 // TODO Сделать рефакторинг
 
+import {Store} from '../../store/Store.js'
+
 export class Select {
 
     static init() {
@@ -14,15 +16,26 @@ export class Select {
             // Заполняем placeholder
             // elem.querySelector('.select__input').value = function()
 
+            // Нажатие на input Открывает select
+            elem.querySelector('.select__input').addEventListener('click', event => {
+                elem.querySelector('.select__dropdownList').classList.add('show')
+            })
+
             // Обработчик нажатия на элементы списка
             elem.querySelector('.select__dropdownList').addEventListener('click', event => {
                 Array.from(elem.querySelector('.select__dropdownList').children).forEach(item => {
                     item.classList.remove('selected')
                 })
-                if (event.target.tagName === 'LI') {
+                if (event.target.tagName === 'LI' && !event.target.className.includes('forAddMeta')) {
                     elem.querySelector('.select__input').setAttribute('data-value', event.target.getAttribute('data-value'))
                     elem.querySelector('.select__input').setAttribute('value', event.target.textContent)
                     elem.querySelector('.select__input').value = event.target.textContent
+                    elem.querySelector('.select__dropdownList').classList.remove('show')
+                    event.target.classList.add('selected')
+                } else {
+                    elem.querySelector('.select__input').setAttribute('data-value', event.target.getAttribute('data-value'))
+                    elem.querySelector('.select__input').value = ''
+                    elem.querySelector('.select__input').placeholder = 'Название'
                     elem.querySelector('.select__dropdownList').classList.remove('show')
                     event.target.classList.add('selected')
                 }
@@ -45,19 +58,30 @@ export class Select {
             // Обработчик нажатия на элементы списка
             elem.querySelector('.select__dropdownList').addEventListener('click', event => {
                 // let arr = elem.querySelectorAll('li')
-
                 event.target.classList.toggle('selected')
-
                 elem.querySelector('.select__dropdownList').querySelectorAll('li').forEach(item => {
                     if (item.className.includes('selected')) {
-                        elem.querySelector('.select__dropdownList').insertBefore(item, elem.querySelector('.select__dropdownList').firstChild)
+                        let secondItem = Array.from(elem.querySelector('.select__dropdownList').querySelectorAll('li'))[1]
+                        elem.querySelector('.select__dropdownList').insertBefore(item, secondItem)
                     }
                 })
 
                 let selectedItems = []
-                elem.querySelectorAll('.selected').forEach(selected => selectedItems.push(selected.textContent))
-
-                elem.querySelector('.select__input').value = selectedItems.join(', ')
+                elem.querySelectorAll('.selected').forEach(selected => {
+                    if (selected.getAttribute('data-value') > Store.getMetaData().executors.length) {
+                        elem.querySelector('.select__input').setAttribute('data-value', event.target.getAttribute('data-value'))
+                        elem.querySelector('.select__input').value = ''
+                        elem.querySelector('.select__input').placeholder = 'Название'
+                        elem.querySelector('.select__dropdownList').classList.remove('show')
+                        event.target.classList.add('selected')
+                    } else {
+                        elem.querySelector('.select__input').setAttribute('data-value', 0)
+                        selectedItems.push(selected.textContent)
+                    }
+                })
+                if (elem.querySelector('.select__input').getAttribute('data-value') > Store.getMetaData().executors.length)
+                    elem.querySelector('.select__input').value = ''
+                else elem.querySelector('.select__input').value = selectedItems.join(', ')
             })
 
             Select.openDropDownList(elem)

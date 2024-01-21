@@ -45,7 +45,12 @@ export class AddHandler {
         AddHandler.#dataAdd.executorId = []
 
         const selectedExecutors = []
-        Array.from(document.querySelector('#addExecutor').children).forEach(elem => {
+        Array.from(document.querySelector('#addExecutor').children).forEach((elem, index) => {
+            if (index === 0 && elem.className.includes('selected')){
+                selectedExecutors.push(document.querySelector('.multiselect-container').querySelector('.select__input').value)
+                AddHandler.#dataAdd.executorId.push(elem.dataset.value)
+                return
+            }
             if (elem.className.includes('selected')) {
                 selectedExecutors.push(elem.textContent)
                 AddHandler.#dataAdd.executorId.push(elem.dataset.value)

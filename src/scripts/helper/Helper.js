@@ -18,6 +18,7 @@ export class Helper {
         Helper.#getNewId()
         Helper.#getMonthList()
         Helper.#getMetaDataList()
+        Helper.#getNewIdByName()
     }
 
     static helperMeta() {
@@ -32,6 +33,13 @@ export class Helper {
     static #getNewId() {
         handlebars.registerHelper('getNewId', () => {
             if (Store.getThisPage().includes('incoming')) return Store.getIncomingData().length + 1
+            else return Store.getMetaData()[Store.getThisPage()].length + 1
+        })
+    }
+
+    static #getNewIdByName() {
+        handlebars.registerHelper('getNewIdByName', (name) => {
+            if (Store.getThisPage().includes('incoming')) return Store.getMetaData()[name].length + 1
             else return Store.getMetaData()[Store.getThisPage()].length + 1
         })
     }

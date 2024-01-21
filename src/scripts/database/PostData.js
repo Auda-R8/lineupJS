@@ -6,6 +6,7 @@ import {Loader} from '../interface/Loader.js'
 export class PostData {
 
     static async post(data) {
+        console.log(Store.getThisPage())
         if (Store.getThisPage().includes('incoming'))
             PostData.#postIncoming(data).then()
         else PostData.#postMeta(data).then()
@@ -13,8 +14,60 @@ export class PostData {
 
     static async #postIncoming(data) {
         try {
-            let lastId = data.id
             console.log(data)
+
+            if (data.typeId > Store.getMetaData()['types'].length) {
+                await new Promise(async (resolve, reject) => {
+                    (await Connection.connect()).run(
+                        `INSERT INTO 'types' (name, enable, counter)
+                     VALUES (?, ?, ?);`,
+                        [data.typeName, 1, 0],
+                        err => {
+                            if (err) reject(err)
+                            else resolve()
+                        })
+                })
+            }
+
+            if (data.senderId > Store.getMetaData()['senders'].length) {
+                await new Promise(async (resolve, reject) => {
+                    (await Connection.connect()).run(
+                        `INSERT INTO 'senders' (name, enable, counter)
+                     VALUES (?, ?, ?);`,
+                        [data.senderName, 1, 0],
+                        err => {
+                            if (err) reject(err)
+                            else resolve()
+                        })
+                })
+            }
+
+            if (data.directorId > Store.getMetaData()['directors'].length) {
+                await new Promise(async (resolve, reject) => {
+                    (await Connection.connect()).run(
+                        `INSERT INTO 'directors' (name, enable, counter)
+                         VALUES (?, ?, ?);`,
+                        [data.directorName, 1, 0],
+                        err => {
+                            if (err) reject(err)
+                            else resolve()
+                        })
+                })
+            }
+
+            if (data.executorId > Store.getMetaData()['executors'].length) {
+                await new Promise(async (resolve, reject) => {
+                    (await Connection.connect()).run(
+                        `INSERT INTO 'executors' (name, enable, counter)
+                     VALUES (?, ?, ?);`,
+                        [data.executorName, 1, 0],
+                        err => {
+                            if (err) reject(err)
+                            else resolve()
+                        })
+                })
+            }
+
 
             await new Promise(async (resolve, reject) => {
                 (await Connection.connect()).run(
@@ -190,16 +243,16 @@ export class PostData {
     }
     static async #postMeta(data) {
         try {
-            await new Promise(async (resolve, reject) => {
-                (await Connection.connect()).run(
-                    `INSERT INTO ${Store.getThisPage()} (name, enable, counter)
-                     VALUES (?, ?, ?);`,
-                    [data.name, data.enable, data.counter],
-                    err => {
-                        if (err) reject(err)
-                        else resolve()
-                    })
-            })
+                await new Promise(async (resolve, reject) => {
+                    (await Connection.connect()).run(
+                        `INSERT INTO ${Store.getThisPage()} (name, enable, counter)
+                         VALUES (?, ?, ?);`,
+                        [data.name, data.enable, data.counter],
+                        err => {
+                            if (err) reject(err)
+                            else resolve()
+                        })
+                })
 
             await Loader.loadData()
             await Connection.disconnect()

@@ -13,6 +13,11 @@
             <input type="text" class="select__input" id="addTypeId" data-value="0" placeholder="Выберите тип">
             <button class="select__dropdownButton">&#9662;</button>
             <ul class="select__dropdownList">
+                <li
+                        data-value="{{#getNewIdByName 'types'}}{{/getNewIdByName}}"
+                        class="forAddMeta"
+                        style="border-bottom: 1px solid #e0e6ed"
+                >+ Добавить новый</li>
                 {{#getMetaDataList metaData 'types'}}
 
                 {{/getMetaDataList}}
@@ -31,6 +36,11 @@
             <input type="text" class="select__input" id="addSenderId" data-value="0" placeholder="Отправитель">
             <button class="select__dropdownButton">&#9662;</button>
             <ul class="select__dropdownList">
+                <li
+                        data-value="{{#getNewIdByName 'senders'}}{{/getNewIdByName}}"
+                        class="forAddMeta"
+                        style="border-bottom: 1px solid #e0e6ed"
+                >+ Добавить нового</li>
                 {{#getMetaDataList metaData 'senders'}}
 
                 {{/getMetaDataList}}
@@ -56,6 +66,11 @@
                    id="addDirectorId" data-value="0" placeholder="Руководитель">
             <button class="select__dropdownButton">&#9662;</button>
             <ul class="select__dropdownList">
+                <li
+                        data-value="{{#getNewIdByName 'directors'}}{{/getNewIdByName}}"
+                        class="forAddMeta"
+                        style="border-bottom: 1px solid #e0e6ed"
+                >+ Добавить нового</li>
                 {{#getMetaDataList metaData 'directors'}}
 
                 {{/getMetaDataList}}
@@ -79,6 +94,11 @@
             <input type="text" class="select__input" data-value="0" placeholder="Исполнители">
             <button class="select__dropdownButton">&#9662;</button>
             <ul class="select__dropdownList" id="addExecutor">
+                <li
+                        data-value="{{#getNewIdByName 'executors'}}{{/getNewIdByName}}"
+                        class="forAddMeta"
+                        style="border-bottom: 1px solid #e0e6ed"
+                >+ Добавить нового</li>
                 {{#getMetaDataList metaData 'executors'}}
 
                 {{/getMetaDataList}}
