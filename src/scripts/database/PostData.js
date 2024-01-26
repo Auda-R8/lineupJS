@@ -73,7 +73,7 @@ export class PostData {
                 (await Connection.connect()).run(
                     `INSERT INTO requisite (sender_id, number, date)
                      VALUES (?, ?, ?)`,
-                    [data.senderId, data.num, data.requisiteDate],
+                    [data.senderId, data.requisiteNumber, data.requisiteDate],
                     (err => {
                         if (err) reject(err)
                         else resolve()

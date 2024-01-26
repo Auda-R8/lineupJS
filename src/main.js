@@ -1,6 +1,6 @@
 const path = require('path')
 const {Router} = require('./router/Router.js')
-const {createDatabase} = require('./CreateDatabase.js')
+const {createDatabase} = require('./Database.js')
 const { app, BrowserWindow, ipcMain } = require('electron')
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -29,10 +29,10 @@ const createWindow = () => {
   mainWindow.loadFile(path.resolve(__dirname, 'index.html'));
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
 
   // On release version
-  // mainWindow.setMenu(null)
+  mainWindow.setMenu(null)
 };
 
 // This method will be called when Electron has finished

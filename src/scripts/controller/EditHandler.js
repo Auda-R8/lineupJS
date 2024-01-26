@@ -143,7 +143,9 @@ export class EditHandler {
 
     static #editMeta(row) {
         EditHandler.#dataSave = []
-        EditHandler.#saveData(Store.getMetaData()[Store.getThisPage()][row.getAttribute('data-value') - 1])
+        const id = row.getAttribute('data-value')
+        const data = (Store.getMetaData()[Store.getThisPage()]).find(elem => elem.id === parseInt(id))
+        EditHandler.#saveData(data)
         EditHandler.#setEditingStyle(row)
 
         Helper.helperEditMeta()
