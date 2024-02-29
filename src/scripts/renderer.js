@@ -30,4 +30,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     ClickHandler.clickEditRow()
     ClickHandler.clickEditCancelRow()
+
+
+    ClickHandler.listenThead();
 })

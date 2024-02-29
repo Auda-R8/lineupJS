@@ -28,11 +28,21 @@ const createWindow = () => {
   // and load the index.html of the app.
   mainWindow.loadFile(path.resolve(__dirname, 'index.html'));
 
+  mainWindow.webContents.on('wheel', (event) => {
+    console.log(event)
+
+    // if (event.ctrlKey) {
+    //   // Если зажата клавиша Ctrl, масштабировать содержимое
+    //   const zoomFactor = event.deltaY > 0 ? 1.2 : 0.8;
+    //   webFrame.setZoomFactor(zoomFactor);
+    // }
+  });
+
   // Open the DevTools.
   // mainWindow.webContents.openDevTools();
 
   // On release version
-  mainWindow.setMenu(null)
+  // mainWindow.setMenu(null)
 };
 
 // This method will be called when Electron has finished

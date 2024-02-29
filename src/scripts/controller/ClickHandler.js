@@ -3,8 +3,44 @@ import {PageRenderer} from '../content/PageRenderer.js'
 import {AddHandler} from './AddHandler.js'
 import {EditHandler} from './EditHandler.js'
 import {Store} from '../../store/Store.js'
+import {Filter} from "../element/Filter.js";
 
 export class ClickHandler {
+    static listenThead() {
+        document.addEventListener('contextmenu', event => {
+            document.querySelectorAll('th').forEach(elem => {
+                if (elem.querySelector('.table-filter') !== null)
+                    elem.querySelector('.table-filter').classList.remove('show')
+            })
+            if (event.target.tagName === 'TH' & event.target.querySelector('.table-filter') !== null) {
+                event.target.querySelector('.table-filter').classList.toggle('show')
+            }
+        })
+        console.log('dfsdf')
+        document.addEventListener('click', event => {
+            document.querySelectorAll('th').forEach(elem => {
+                if (elem.querySelector('.table-filter') !== null)
+                    elem.querySelector('.table-filter').classList.remove('show')
+            })
+        console.log('sdfsdsd')
+            const clearAll = () => {
+                event.target.closest('ul').querySelectorAll('li').forEach(
+                    elem => {
+                        elem.classList.remove('selected')
+                    })
+            }
+
+            if (event.target.tagName === 'LI' && event.target.closest('.table-filter')) {
+                if (event.target.hasAttribute(`data-key`)) {
+                    clearAll()
+                }
+                clearAll()
+                event.target.classList.add('selected')
+                Filter.by(event)
+            }
+        })
+    }
+
     static #changePage(event) {
         event.preventDefault()
         Button.reset()

@@ -169,6 +169,7 @@ input {
     position: sticky;
     top: 49.9px;
     z-index: 100;
+    box-shadow: 0 0 30px -18px rgba(91, 91, 91, .8);
 }
 
 /* General Styles */

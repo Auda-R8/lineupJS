@@ -27,8 +27,8 @@ export class EditHandler {
     }
 
     static postData() {
-        if (Store.getThisPage().includes('incoming')) EditHandler.#postIncoming()
-        else EditHandler.#postMeta()
+        if (Store.getThisPage().includes('incoming')) EditHandler.#postIncoming().then()
+        else EditHandler.#postMeta().then()
     }
 
     static editData(row) {
@@ -129,7 +129,11 @@ export class EditHandler {
     static #editIncoming(row) {
         EditHandler.#setEditingStyle(row)
         EditHandler.#dataSave = []
-        EditHandler.#saveData(Store.getIncomingData()[row.getAttribute('data-value') - 1])
+        let item = Store.getIncomingData().find(elem => {
+            console.log(row.getAttribute('data-value'))
+            return parseInt(elem.id) === parseInt(row.getAttribute('data-value'))
+        })
+        EditHandler.#saveData(item)
         Helper.helperEditIncoming()
 
         const template = handlebars.compile(fs.readFileSync(path.resolve(__dirname, 'components/rows/editingIncomingRow.hbs'), 'utf8'))
